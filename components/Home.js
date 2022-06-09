@@ -4,20 +4,30 @@ import { NavigationContainer } from "@react-navigation/native";
 import { customers } from "../customers";
 
 function Home({ navigation }) {
-  /* const [customers, setCustomers] = useState({customers}) */
-
+ const [customers, setCustomers] = useState({customers}) 
+ 
   const pressHandler = (customerDetails) => {
    /*  navigation.navigate("Detail", {id: customerDetails}); */
-   navigation.setParams({itemId: 1 });
+   /*navigation.setParams({itemId: 1 });*/
   };
 
   return (
-    <View>
+    {/* <View>
       {customers.map((customer) => (
         <Button key={customer.id.value} title={customer.name.first} onPress={pressHandler(customer.id.value)} />
       ))}
-    </View>
+    </View> */}
+    <View>
+    <FlatList
+        keyExtractor={(item) => item.cell}
+        data={customerState.customers}
+        renderItem={({ item }) => (
+            <View>
+                <Text>{item.name.first}</Text>
+                <Button onPress={() => navigation.navigate('Detail', { customer: item })} title="See profile" />
+            </View>
+        )} />
   );
-}
+};
 
 export default Home;

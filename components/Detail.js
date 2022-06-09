@@ -1,19 +1,26 @@
-import React from 'react'
-import { View, Text} from 'react-native';
-import { customers } from '../customers'; 
+import React from "react";
+import { View, Text } from "react-native";
+import { customers } from "../customers";
 
-const Detail = ({route, navigation}) => {
+const Detail = ({ route }) => {
+  const { customer } = route.params;
 
-const { id } = route.params;
+  const customerToDisplay = customers.find(
+    (customer) => customer.id.value === id
+  );
 
-const customerToDisplay = customers.find(customer => customer.id.value === id)
-
-return (
-    <View >
-      <Text>{id}</Text>
-      <Text>{customerToDisplay ? customerToDisplay.name.first : "No info dude!!"}</Text>
-    </ View> 
-  )
-}
+  return (
+    <View>
+      <Text>
+        Name: {customer.name.first} {customer.name.last}
+      </Text>
+      <Text>Email: {customer.email}</Text>
+      <Image
+        source={{ uri: customer.picture.large }}
+        style={{ width: 400, height: 400 }}
+      />
+    </View>
+  );
+};
 
 export default Detail;
